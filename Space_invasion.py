@@ -14,6 +14,8 @@ playerimg=pygame.image.load('spaceship.webp ')
 playerimg=pygame.transform.scale(playerimg,(55,55))#resize image to 55*55 px
 x_position=260
 y_position=430
+xchange=0
+ychange=0
 
 def player(x,y):  #display image of space ship 
     screen.blit(playerimg,(x,y))
@@ -28,10 +30,23 @@ while running:   #anything that u want to be shown consisitently on screen
 
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_LEFT:
-                x_position=-10
-            elif event.key==pygame.K_RIGHT:
-                x_position=+10
-    
+                xchange=-0.1
+            if event.key==pygame.K_RIGHT:
+                xchange=+0.1
+                
+        if event.type==pygame.KEYDOWN:
+            if event.key==pygame.K_UP:
+                ychange=-0.1
+            if event.key==pygame.K_DOWN:
+                ychange=+0.1
+
+
+        if event.type==pygame.KEYUP:
+            xchange=0
+            ychange=0
+
+    x_position+=xchange
+    y_position+=ychange
     player(x_position,y_position)
-    pygame.display.update()
+    pygame.display.update() 
 
