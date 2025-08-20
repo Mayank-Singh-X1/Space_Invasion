@@ -12,7 +12,8 @@ pygame.display.set_icon(icon)
 #background
 background=pygame.image.load('background.jpg')
 background=pygame.transform.scale(background,(600,500))
- 
+
+
 #Alien
 alien_img=pygame.image.load('alien.png')
 alien_img=pygame.transform.scale(alien_img,(40,40))
@@ -23,18 +24,34 @@ a_ychange=20
 
 
 #Player
-playerimg=pygame.image.load('spaceship.webp ')
+playerimg=pygame.image.load('spaceship.webp')
 playerimg=pygame.transform.scale(playerimg,(55,55))
 x_position=260
 y_position=430
 xchange=0
 ychange=0
 
+#bullet
+bullet=pygame.image.load('bullet.png')
+bullet=pygame.transform.scale(bullet,(25,25))
+bulletx=0
+bullety=y_position
+bulletx_change=0
+bullety_change=-0.2
+bulletState='ready'
+
 def player(x,y):  #display image of space ship 
     screen.blit(playerimg,(x,y))
    
 def alien(x,y):  #display image of alien
     screen.blit(alien_img,(x,y))
+
+def fire(x,y):
+    global bulletState
+    bulletState='fire'
+    screen.blit(bullet,(x+20,y+20))
+
+
 
 running=True
 while running:   
@@ -48,7 +65,14 @@ while running:
             if event.key==pygame.K_LEFT:
                 xchange=-0.1
             if event.key==pygame.K_RIGHT:
-                xchange=+0.1                
+                xchange=+0.1    
+            if event.key == pygame.K_SPACE and bulletState == 'ready':
+                bulletx = x_position - 4 
+                bullety = y_position
+                bulletState = 'fire'
+
+
+
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_UP:
                 ychange=-0.1
@@ -82,6 +106,14 @@ while running:
     elif a_xposition>=560:
         a_xchange=-0.09
         a_yposition+=a_ychange
+
+    if bulletState == 'fire':
+        fire(bulletx, bullety)
+        bullety += bullety_change
+        if bullety <= 0:
+            bullety = y_position
+            bulletState = 'ready'
+
 
     player(x_position,y_position) 
     alien(a_xposition,a_yposition)
