@@ -1,112 +1,144 @@
 import pygame
 import random
+import math
+
 pygame.init()
 
-#Screen
-screen=pygame.display.set_mode((600,500))
-#title
+# Screen setup
+screen = pygame.display.set_mode((600, 500))
 pygame.display.set_caption("Space Invader")
-#icon
-icon=pygame.image.load('spaceship.webp')
+icon = pygame.image.load('spaceship.webp')
 pygame.display.set_icon(icon)
-#background
-background=pygame.image.load('background.jpg')
-background=pygame.transform.scale(background,(600,500))
+background = pygame.image.load('background.jpg')
+background = pygame.transform.scale(background, (600, 500))
 
+# Aliens
+alien_img = []
+a_xposition = []
+a_yposition = []
+a_xchange = []
+a_ychange = []
 
-#Alien
-alien_img=pygame.image.load('alien.png')
-alien_img=pygame.transform.scale(alien_img,(40,40))
-a_xposition=random.randint(0,560)
-a_yposition=random.randint(0,260)
-a_xchange=0.09
-a_ychange=20
+num_of_alien = 8
 
+for i in range(num_of_alien):
+    alien_surface = pygame.image.load('alien.png')
+    alien_surface = pygame.transform.scale(alien_surface, (40, 40))
+    alien_img.append(alien_surface)
+    a_xposition.append(random.randint(0, 560))
+    a_yposition.append(random.randint(0, 260))
+    a_xchange.append(0.09)
+    a_ychange.append(20)
 
-#Player
-playerimg=pygame.image.load('spaceship.webp')
-playerimg=pygame.transform.scale(playerimg,(55,55))
-x_position=260
-y_position=430
-xchange=0
-ychange=0
+# Player
+playerimg = pygame.image.load('spaceship.webp')
+playerimg = pygame.transform.scale(playerimg, (55, 55))
+x_position = 260
+y_position = 430
+xchange = 0
+ychange = 0
 
-#bullet
-bullet=pygame.image.load('bullet.png')
-bullet=pygame.transform.scale(bullet,(25,25))
-bulletx=0
-bullety=y_position
-bulletx_change=0
-bullety_change=-0.2
-bulletState='ready'
+# Bullet
+bullet = pygame.image.load('bullet.png')
+bullet = pygame.transform.scale(bullet, (25, 25))
+bulletx = 0
+bullety = y_position
+bulletx_change = 0
+bullety_change = -0.2
+bulletState = 'ready'
 
-def player(x,y):  #display image of space ship 
-    screen.blit(playerimg,(x,y))
-   
-def alien(x,y):  #display image of alien
-    screen.blit(alien_img,(x,y))
+score_value=0
+font=pygame.font.Font('freesansbold.ttf',25)
+x_text=10
+y_text=10
 
-def fire(x,y):
+def show_score(x,y):
+    score=font.render('Score : ' + str(score_value),True,(255,255,255))
+    screen.blit(score,(x,y))
+
+def player(x, y):
+    screen.blit(playerimg, (x, y))
+
+def alien(x, y, i):
+    screen.blit(alien_img[i], (x, y))
+
+def fire(x, y):
     global bulletState
-    bulletState='fire'
-    screen.blit(bullet,(x+20,y+20))
+    bulletState = 'fire'
+    screen.blit(bullet, (x+20, y+20))
+
+def iscollision(bulletx, bullety, a_xposition, a_yposition):
+    distance = math.sqrt((math.pow(bulletx - a_xposition, 2) + math.pow(bullety - a_yposition, 2)))
+    if distance < 25:
+        return True
+    else:
+        return False
 
 
 
-running=True
-while running:   
-    screen.blit(background,(0,0))
+running = True
+while running:
+    screen.blit(background, (0, 0))
 
-    for event in pygame.event.get(): 
-        if event.type==pygame.QUIT:
-            running=False
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
 
-        if event.type==pygame.KEYDOWN:
-            if event.key==pygame.K_LEFT:
-                xchange=-0.1
-            if event.key==pygame.K_RIGHT:
-                xchange=+0.1    
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                xchange = -0.1
+            if event.key == pygame.K_RIGHT:
+                xchange = 0.1
+            if event.key == pygame.K_UP:
+                ychange = -0.1
+            if event.key == pygame.K_DOWN:
+                ychange = 0.1
             if event.key == pygame.K_SPACE and bulletState == 'ready':
-                bulletx = x_position - 4 
+                bulletx = x_position - 4
                 bullety = y_position
                 bulletState = 'fire'
 
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                xchange = 0
+            if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                ychange = 0
 
+    x_position += xchange
+    y_position += ychange
 
-        if event.type==pygame.KEYDOWN:
-            if event.key==pygame.K_UP:
-                ychange=-0.1
-            if event.key==pygame.K_DOWN:
-                ychange=+0.1
+    # Keep player in bounds
+    if x_position < 0:
+        x_position = 0
+    elif x_position > 545:
+        x_position = 545
 
-        if event.type==pygame.KEYUP:
-            xchange=0
-            ychange=0
+    if y_position < 0:
+        y_position = 0
+    elif y_position > 445:
+        y_position = 445
 
-    
-    x_position+=xchange
-    
-    if x_position<=0 :
-        x_position=0
-    elif x_position>=545:
-        x_position=545
+    # Aliens movement and collision
+    for i in range(num_of_alien):
+        a_xposition[i] += a_xchange[i]
+        if a_xposition[i] <= 0:
+            a_xchange[i] = 0.09
+            a_yposition[i] += a_ychange[i]
+        elif a_xposition[i] >= 560:
+            a_xchange[i] = -0.09
+            a_yposition[i] += a_ychange[i]
 
-    y_position+=ychange
+        collision = iscollision(bulletx, bullety, a_xposition[i], a_yposition[i])
+        if collision and bulletState == 'fire':
+            bullety = y_position
+            bulletState = 'ready'
+            score_value += 1
+            a_xposition[i] = random.randint(0, 560)
+            a_yposition[i] = random.randint(0, 260)
 
-    if y_position<=0 :
-        y_position=0
-    elif y_position>=445:
-        y_position=445
+        alien(a_xposition[i], a_yposition[i], i)
 
-
-    a_xposition+=a_xchange
-    if a_xposition<=0 :
-        a_xchange=0.09
-        a_yposition+=a_ychange
-    elif a_xposition>=560:
-        a_xchange=-0.09
-        a_yposition+=a_ychange
-
+    # Bullet movement
     if bulletState == 'fire':
         fire(bulletx, bullety)
         bullety += bullety_change
@@ -114,8 +146,6 @@ while running:
             bullety = y_position
             bulletState = 'ready'
 
-
-    player(x_position,y_position) 
-    alien(a_xposition,a_yposition)
-    pygame.display.update() 
-
+    player(x_position, y_position)
+    show_score(x_text,y_text)
+    pygame.display.update()
