@@ -1,4 +1,4 @@
-<u>###Space Invasion 🛸🚀</u>
+###Space Invasion 🛸🚀
 
 A simple Space Invader game built with Python and Pygame.
 The player controls a spaceship, shoots bullets, and tries to destroy aliens before they reach the bottom of the screen.
