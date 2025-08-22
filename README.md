@@ -22,7 +22,7 @@ The player controls a spaceship, shoots bullets, and tries to destroy aliens bef
 - Python 3.8+
 - Pygame 2.0+
 
-**Screenshot:**
+**Screenshot:**\n
 <img width="500" height="400" alt="image" src="https://github.com/user-attachments/assets/afda84a2-17e4-48fd-91b8-7e26d654a8aa" />
 
 ## 📥 Installation & Setup
