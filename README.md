@@ -23,13 +23,13 @@ The player controls a spaceship, shoots bullets, and tries to destroy aliens bef
 - Pygame 2.0+
 
 **Screenshot:** 
-<img width="600" height="400" alt="image" src="https://github.com/user-attachments/assets/afda84a2-17e4-48fd-91b8-7e26d654a8aa" />
+<img width="650" height="450" alt="image" src="https://github.com/user-attachments/assets/afda84a2-17e4-48fd-91b8-7e26d654a8aa" />
 
 ## 📥 Installation & Setup
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/your-username/space-invader.git
+   git clone https://github.com/Mayank-Singh-X1/space-invader.git
    cd space-invader
 2. Install dependencies:
     ```
