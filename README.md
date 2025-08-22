@@ -1,4 +1,4 @@
-###Space Invasion 🛸🚀
+### Space Invasion 🛸🚀
 
 A simple Space Invader game built with Python and Pygame.
 The player controls a spaceship, shoots bullets, and tries to destroy aliens before they reach the bottom of the screen.
@@ -23,6 +23,22 @@ The player controls a spaceship, shoots bullets, and tries to destroy aliens bef
 - Pygame 2.0+
 
 **Screenshot:**
-<img width="746" height="659" alt="image" src="https://github.com/user-attachments/assets/afda84a2-17e4-48fd-91b8-7e26d654a8aa" />
+<img width="500" height="400" alt="image" src="https://github.com/user-attachments/assets/afda84a2-17e4-48fd-91b8-7e26d654a8aa" />
+
+## 📥 Installation & Setup
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/your-username/space-invader.git
+   cd space-invader
+2. Install dependencies:
+    ```
+    pip install -r requirements.txt
+
+3. Run the game:
+   ```
+   python main.py
+
+
 
 
