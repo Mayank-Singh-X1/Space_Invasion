@@ -12,10 +12,10 @@ The player controls a spaceship, shoots bullets, and tries to destroy aliens bef
 
 ⚡ **Features**
 
-✅ Classic retro Space Invader gameplay
-✅ Smooth player movement with arrow keys
-✅ Shooting bullets with spacebar
-✅ Score counter on screen
+✅ Classic retro Space Invader gameplay                                                         
+✅ Smooth player movement with arrow keys                                                       
+✅ Shooting bullets with spacebar                                                               
+✅ Score counter on screen                                                                      
 ✅ Game Over screen when aliens invade
 
 ## 🛠️ Requirements
