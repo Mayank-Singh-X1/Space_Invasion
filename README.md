@@ -5,9 +5,9 @@ The player controls a spaceship, shoots bullets, and tries to destroy aliens bef
 
 🎮 **Game Preview**    
 
-🕹️Player can move up, down, left, right using arrow keys.
-🔫Press Spacebar to shoot bullets.
-👽Aliens move left to right and descend slowly.
+🕹️Player can move up, down, left, right using arrow keys.                                       
+🔫Press Spacebar to shoot bullets.                                                              
+👽Aliens move left to right and descend slowly.                                                 
 😵The game ends when an alien reaches too close to the bottom.
 
 ⚡ **Features**
