@@ -38,7 +38,3 @@ The player controls a spaceship, shoots bullets, and tries to destroy aliens bef
 3. Run the game:
    ```
    python main.py
-
-
-
-
